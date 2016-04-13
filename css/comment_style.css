@@ -1,0 +1,31 @@
+.comment_container {
+	background-color: #666666;
+	border: 1px solid #CCCCCC;
+	padding: 4px;
+	width: 420px;
+}
+.each comment{
+	background-color: #ffffff;
+	width: 410px;
+	padding: 4px;
+	border: 1px solid #666666;
+}
+.comment_form{
+	background-color: #ffffff;
+	width: 410px;
+	text-align: center;
+	border: 1px solid #666666;
+}
+.comment_form table{
+	width: 410px;
+	height: auto;
+}
+.comment_form #comment_process{
+	height: 32px;
+	width: 115px;
+}
+.comment_form #comment_text{
+	height: 32px;
+	width: 285px;
+	resize: none;
+}

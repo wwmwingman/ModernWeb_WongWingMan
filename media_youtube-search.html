@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>AIDS Positive</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/themes/wwm.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" /> 
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
+</head>
+
+<body>
+
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<div data-role="page" id="media_youtube-search" data-add-back-btn="true">
+
+<div data-role="header">
+  <a href="#home" data-icon="arrow-l" class="ui-btn-left" >Back</a>
+    <h1>AIDS Positive</h1>
+  </div>
+
+<div data-role="header">
+  <div data-role="navbar">
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="media.html">Media</a></li>
+      <li><a href="enquiry_index.php">Enquiry</a></li>
+    </ul>
+  </div>
+</div>
+
+    <script>
+	function tplawesome(e,t){res=e;for(var n=0;n<t.length;n++){res=res.replace(/\{\{(.*?)\}\}/g,function(e,r){return t[n][r]})}return res}
+
+$(function() {
+    $("form").on("submit", function(e) {
+       e.preventDefault();
+       // prepare the request
+       var request = gapi.client.youtube.search.list({
+            part: "snippet",
+            type: "video",
+            q: encodeURIComponent($("#search").val()).replace(/%20/g, "+"),
+            maxResults: 8,
+            order: "viewCount",
+            publishedAfter: "2015-01-01T00:00:00Z"
+       }); 
+       // execute the request
+       request.execute(function(response) {
+          var results = response.result;
+          $("#results").html("");
+          $.each(results.items, function(index, item) {
+            $.get("video.html", function(data) {
+                $("#results").append(tplawesome(data, [{"title":item.snippet.title, "videoid":item.id.videoId}]));
+            });
+          });
+          resetVideoHeight();
+       });
+    });
+    
+    $(window).on("resize", resetVideoHeight);
+});
+
+function resetVideoHeight() {
+    $(".video").css("height", $("#results").width() * 9/16);
+}
+
+function init() {
+    gapi.client.setApiKey("AIzaSyCKcDNX-dRWmBS0rfGYfIy9WQJjsWGHNbw");
+    gapi.client.load("youtube", "v3", function() {
+        // yt api is ready
+    });
+}
+</script>
+        <header>
+        <h2 class="w100 text-center">Search more about AIDS video on YouTube</a></h2>
+        </header>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="#">
+                    <p><input type="text" id="search" placeholder="AIDS Positive" autocomplete="off" class="form-control" /></p>
+                    <p><center><input type="submit" value="Search" class="form-control btn btn-primary w100" data-inline="true"></center></p>
+                </form>
+                <div id="results"></div>
+            </div>
+        </div>
+        
+        <!-- scripts -->
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="https://apis.google.com/js/client.js?onload=init"></script>
+        
+	<div data-role="footer">
+   		<h4>© 2016 by Wong Wing Man</h4>
+	</div>
+
+  
+    </body>
+</html>

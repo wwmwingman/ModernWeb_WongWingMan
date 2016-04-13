@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>AIDS Positive</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/themes/wwm.css" />
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" /> 
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
+
+</head>
+<body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=1079816428742445";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
+<script src="http://connect.facebook.net/en_US/all.js">
+  </script>
+  <script>
+      FB.init({
+          appId: '1079816428742445', cookie: true,
+          status: true, xfbml: true
+      });
+      FB.Event.subscribe('auth.login', function () {
+          window.location = "userpage.html";
+      });
+  </script>
+
+<meta content="width=device-width, initial-scale=1" name="viewport">
+
+<div data-role="page" id="signin">
+
+
+ 
+
+<script>
+$(document).ready(function(e) {
+	//alert("aaa");
+	$("#signin #signinButton").click(function(){
+		//alert("The paragraph was clicked");
+		signin();
+	});
+});
+
+function signin(){
+  //alert("signin");
+    var URLs="signin.php";
+
+    var name=$("#name").val();
+    var password=$("#password").val();
+
+    var myData = 'name='+ name + '&password='+ password; //build a post data structure
+	$.ajax({
+		url: URLs,
+		data: myData,
+		type:"POST",
+		dataType:'text',
+	
+		success: function(mymsg){
+			//alert("["+mymsg+"]");
+			if(mymsg == "OK"){
+				alert("Login Successful, redirecting...");
+				window.location.replace("userpage.html");
+				
+			}else{
+	
+				alert("Invalid username or password");
+			}
+		},
+	
+		error:function(xhr, ajaxOptions, thrownError){
+			
+		  alert(xhr.status);
+		  alert(thrownError);
+		}
+});
+
+}
+</script>
+
+
+
+<div data-role="header">
+  <a href="#home" data-icon="arrow-l" class="ui-btn-left" >Back</a>
+    <h1>AIDS Positive</h1>
+    
+
+  </div>
+  
+<div class="container">
+<div class="main">
+<form class="form" method="post" action="">
+<center><h2>Sign In</h2></center>
+<p>
+  <label>Name :</label>
+  <input type="text" name="name" id="name">
+  <label><br>
+    Password :</label>
+  <input type="password" name="password" id="password">
+  </p>
+<p>
+  <center>
+    <p>
+      <input type="button" id="signinButton" value="Signin"  data-inline="true">
+    </p>
+    <p>OR Login with facebook</p>
+    <div class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+  </center>
+</p>
+</form>
+</div>
+</div>
+
+ 
+ <div data-role="footer" class="ui-bar">Don't have an account? <a href="registration.html" data-role="button" data-icon="plus">Sign Up</a>
+</div>
+ 
+</body>
+</html>
