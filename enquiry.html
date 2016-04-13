@@ -1,47 +1,103 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<title>AIDS Positive</title>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/themes/wwm.css" />
-<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" /> 
-<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
-<script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
+  <title>AIDS Positive</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/themes/wwm.css" />
+  <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+  <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" /> 
+  <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script> 
+  <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script> 
 </head>
-
 <body>
-<meta content="width=device-width, initial-scale=1" name="viewport">
-<div data-role="page" id="home" data-add-back-btn="true">
 
+<script>
+$(document).ready(function() {
+	var myData = "name= &enquiry=";
+	$.ajax({
+		url: "enquiry.php?type=read",
+		data: myData,
+		type:"POST"
+		,
+		
+		success: function(msg){
+			alert(msg);
+			var data = JSON.parse(msg);
+			//alert(JSON.stringif(data));
+			$.each(data, function(key, val) {
+				$("#messages").append("<p>"+val.name+ ":" +" " + val.enquiry+"</p>");
+			});
+		}
+	});
+	
+	
+	$("#submit").click (function(){
+		var URLs="enquiry.php?type=submit";
+		var name=$("#name").val();
+		var enquiry =$("#comment_text").val();
+		var myData = "name=" + name + "&enquiry="+enquiry;
+		//alert(myData);
+		
+		$.ajax({
+		url: URLs,
+		data: myData,
+		type:"POST"
+		,
+		
+		success: function(msg){
+			var data = jQuery.parseJSON(msg);
+			if(data.result == true){
+			//$.each(data, function(key, val) {
+				//$("#messages").html("");
+				$("#messages").append(""+name+ ":" +" " + enquiry+"");
+				//alert(data);
+			//});
+			}
+		
+		},
+		
+		error:function(xhr, ajaxOptions, thrownError){
+		alert(xhr.status);
+		alert(thrownError);
+		}
+		});
+		});
+	});
+</script>
 
-  <div data-role="header">
-  <a href="#home" data-icon="arrow-l" class="ui-btn-left" >Back</a>
-    <h1>AIDS Positive</h1>
-  </div>
-
-<div data-role="header">
-  <div data-role="navbar">
-    <ul>
-      <li><a href="about.html">About</a></li>
-      <li><a href="resource.html">Resource</a></li>
-      <li><a href="media.html">Media</a></li>
-      <li><a href="enquiry.html">Enquiry</a></li>
-    </ul>
-  </div>
-</div>
-	<center><h3>Enquiry</h3></center>
-
-<form action="enquiry.php" method="POST">
-	Name: <br><input type="text" name="name"><br>
-    Content: <br><textarea name="request"></textarea>
-    <center><input type="submit" name="submit" value="Send" data-inline="true"></center>
-    
-    </form>
-
-	<div data-role="footer">
-   		<h4>© 2016 by Wong Wing Man</h4>
+ 
+<div data-role="page" id="enquiry">
+	<div data-role="header">
+		<h1>AIDS Positive</h1>
 	</div>
+    
+    <div align="center"><ul id="messages"></ul></div>
+	<div data-role="content">
+     
+  <p>Name:</p>
+	
+	    <p>
+	      <label for="Enquiry"></label>
+	      <input type="text" name="Enquiry" id="name">
+        </p>
+     
+        <p>Enquiry:</p>
+	
+	    <p>
+	      <label for="enquirys"></label>
+	      <textarea rows="4" cols="50" id="comment_text"></textarea>
+        </p>
+        
+	    <p>
+	      <center><input type="submit" name="Submit" id="submit" value="Submit" data-inline="true"></center>
+	    </p>
+	  </form>
+  </div>
+    	
+	<div data-role="footer" data-position="fixed">
+
+</div>
+
 </body>
 </html>
