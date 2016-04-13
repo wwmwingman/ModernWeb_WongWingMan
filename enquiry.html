@@ -50,7 +50,7 @@ $(document).ready(function() {
 			if(data.result == true){
 			//$.each(data, function(key, val) {
 				//$("#messages").html("");
-				$("#messages").append(""+name+ ":" +" " + enquiry+"");
+				$("#messages").append("<p>"+name+ ":" +" " + enquiry+"</p>");
 				//alert(data);
 			//});
 			}
@@ -66,11 +66,27 @@ $(document).ready(function() {
 	});
 </script>
 
- 
-<div data-role="page" id="enquiry">
-	<div data-role="header">
-		<h1>AIDS Positive</h1>
-	</div>
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<div data-role="page" id="enquiry" data-add-back-btn="true">
+
+
+<div data-role="header">
+	<h1>AIDS Positive</h1>
+      <a href="#home" data-icon="arrow-l" class="ui-btn-left" >Back</a>
+    
+</div>
+
+<div data-role="header">
+  <div data-role="navbar">
+    <ul>
+      <li><a href="about.html">About</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="media.html">Media</a></li>
+      <li><a href="enquiry.html">Enquiry</a></li>
+    </ul>
+  </div>
+</div>
+
     
     <div align="center"><ul id="messages"></ul></div>
 	<div data-role="content">
